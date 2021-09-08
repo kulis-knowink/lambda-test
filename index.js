@@ -39,6 +39,5 @@ exports.handler = async (event) => {
     };
 
     const copyPromises = list.Contents.map(({Key}) => s3.copyObject(copyParams(Key)).promise());
-
     await Promise.all(copyPromises)
 };
