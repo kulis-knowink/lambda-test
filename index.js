@@ -36,6 +36,6 @@ exports.handler = async (event) => {
         };
     };
 
-    const copyPromise = s3.copyObject(copyParams).promise());
+    const copyPromise = s3.copyObject(copyParams).promise();
     await Promise.all(copyPromise)
 };
