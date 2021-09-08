@@ -27,7 +27,8 @@ exports.handler = async (event) => {
         }
     } = first;
 
-    const dataBucket = "dev-ki-apps-foo-data"
+    const [ env ] = name.split("-")
+    const dataBucket = `${env}-ki-apps-foo-data`
     const copyParams = {
         Bucket: dataBucket,
         CopySource: `${name}/${key}`,
