@@ -28,9 +28,7 @@ exports.handler = async (event) => {
     } = first;
 
     const dataBucket = "dev-ki-apps-foo-data"
-    const copyParams = key => {
-
-        const subkey = key.replace(from, '');
+    const copyParams = () => {
         return {
             Bucket: dataBucket,
             CopySource: `${dataBucket}/${key}`,
@@ -38,6 +36,6 @@ exports.handler = async (event) => {
         };
     };
 
-    const copyPromises = list.Contents.map(({Key}) => s3.copyObject(copyParams(Key)).promise());
-    await Promise.all(copyPromises)
+    const copyPromise = s3.copyObject(copyParams).promise());
+    await Promise.all(copyPromise)
 };
