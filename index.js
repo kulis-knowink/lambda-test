@@ -28,14 +28,12 @@ exports.handler = async (event) => {
     } = first;
 
     const dataBucket = "dev-ki-apps-foo-data"
-    const copyParams = () => {
-        return {
-            Bucket: dataBucket,
-            CopySource: `${bucket}/${key}`,
-            Key: key
-        };
+    const copyParams = {
+        Bucket: dataBucket,
+        CopySource: `${name}/${key}`,
+        Key: key
     };
 
     const copyPromise = s3.copyObject(copyParams).promise();
-    await Promise.all(copyPromise);
+    await copyPromise;
 };
