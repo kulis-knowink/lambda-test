@@ -3,11 +3,17 @@ on:
   push:
     branches:
       - dev
+      - stage
+      - prod
 jobs:
   deploy_zip:
     name: build and deploy lambda
     runs-on: ubuntu-latest
     steps:
+      - name: Extract branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
       - name: Checkout source
         uses: actions/checkout@v1
       - name: Set up node
@@ -22,5 +28,5 @@ jobs:
           aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws_region: ${{ secrets.AWS_REGION }}
-          function_name: dev-js-test-pipeline
+          function_name: ${{steps.extract_branch.outputs.branch}}-js-test-pipeline
           zip_file: bundle.zip
