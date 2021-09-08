@@ -1,7 +1,8 @@
 name: deploy to lambda
 on:
   push:
-    - dev
+    branches:
+      - dev
 jobs:
   deploy_zip:
     name: build and deploy lambda
