@@ -31,11 +31,11 @@ exports.handler = async (event) => {
     const copyParams = () => {
         return {
             Bucket: dataBucket,
-            CopySource: `${dataBucket}/${key}`,
+            CopySource: `${bucket}/${key}`,
             Key: key
         };
     };
 
     const copyPromise = s3.copyObject(copyParams).promise();
-    await Promise.all(copyPromise)
+    await Promise.all(copyPromise);
 };
